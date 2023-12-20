@@ -2,7 +2,6 @@ package xyz.deved.socialmedia.socialmedia.user;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
