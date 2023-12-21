@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 
 @Component
-public class UserDaoService {
+public class  UserDaoService {
     private static List<User> users = new ArrayList<>();
     private static int userCount;
     static {
