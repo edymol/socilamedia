@@ -108,4 +108,33 @@ public class UserJpaResource {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
+    @DeleteMapping("/jpa/users/{userId}/posts/{postId}")
+    public void deletePostForUser(
+            @PathVariable int userId,
+            @PathVariable int postId
+    ) {
+        // First, find the user
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException("User not found with id: " + userId);
+        }
+
+        User user = userOptional.get();
+
+        // Then, find the post for the user
+        Optional<Post> postOptional = postRepository.findById(postId);
+        if (postOptional.isEmpty()) {
+            throw new PostNotFoundException("Post not found with id: " + postId);
+        }
+
+        Post post = postOptional.get();
+
+        // Check if the post belongs to the specified user
+        if (!post.getUser().getId().equals(userId)) {
+            throw new PostNotFoundException("Post with id " + postId + " does not belong to user with id " + userId);
+        }
+
+        postRepository.deleteById(postId);
+    }
+
 }
